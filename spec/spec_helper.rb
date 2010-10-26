@@ -10,7 +10,9 @@ $LOAD_PATH.unshift(path) unless $LOAD_PATH.include?(path)
 require File.expand_path(File.dirname(__FILE__) + "/../lib/feedzirra.rb")
 
 def load_sample(filename)
-  File.read("#{File.dirname(__FILE__)}/sample_feeds/#{filename}")
+  result=File.read("#{File.dirname(__FILE__)}/sample_feeds/#{filename}")
+  result.force_encoding("UTF-8")
+  result
 end
 
 def sample_atom_feed
