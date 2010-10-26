@@ -14,9 +14,9 @@ module Feedzirra
     # * categories
     class RSSEntry
       include SAXMachine
-      include FeedEntryUtilities
       element :title
       element :link, :as => :url
+      element "pheedo:origLink", :as => :original_link
 
       element :"dc:creator", :as => :author
       element :author, :as => :author
@@ -35,6 +35,37 @@ module Feedzirra
       elements :category, :as => :categories
 
       element :guid, :as => :entry_id
+      element "media:thumbnail",:value => :url, :as => :thumbnail
+      element "media:thumbnail",:value => :width, :as => :thumbnail_width
+      element "media:thumbnail",:value => :height, :as => :thumbnail_height
+
+      element "media:content",:value => :url, :as => :thumbnail
+      element "media:content",:value => :width, :as => :thumbnail_width
+      element "media:content",:value => :height, :as => :thumbnail_height
+include FeedEntryUtilities
+
+      def published
+        result =@published || @updated
+        if result.is_a? String
+          result=@published =parse_datetime(result)
+        end
+        result
+      end
+      def updated
+        if @updated.is_a? String
+          @updated =parse_datetime(@updated)
+        end
+        @updated
+      end
+
+      def original_link
+        return CGI.unescapeHTML(@original_link) if @original_link
+        return nil
+      end
+      def link
+           self.original_link || @url
+      end
+
     end
 
   end

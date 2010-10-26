@@ -1,7 +1,11 @@
 module Feedzirra
   module FeedEntryUtilities    
     def published
-      @published || @updated
+      result =@published || @updated
+      if result.is_a? String
+        result=@published =parse_datetime(result)
+      end
+      reult
     end
     
     def parse_datetime(string)
@@ -41,5 +45,11 @@ module Feedzirra
     end
     
     alias_method :last_modified, :published
+
+
+    def link
+      @original_link || @url
+    end
+
   end
 end

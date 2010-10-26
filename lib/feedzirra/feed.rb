@@ -261,6 +261,10 @@ module Feedzirra
     def self.add_feed_to_multi(multi, feed, feed_queue, responses, options) 
       easy = Curl::Easy.new(feed.feed_url) do |curl|
         curl.headers["User-Agent"]        = (options[:user_agent] || USER_AGENT)
+        if feed.last_modified && feed.last_modified.is_a?(String)
+          feed.last_modified=DateTime.parse(feed.last_modified)
+        end
+          
         curl.headers["If-Modified-Since"] = feed.last_modified.httpdate if feed.last_modified
         curl.headers["If-None-Match"]     = feed.etag if feed.etag
         curl.userpwd = options[:http_authentication].join(':') if options.has_key?(:http_authentication)

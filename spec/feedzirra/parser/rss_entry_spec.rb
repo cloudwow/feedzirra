@@ -1,4 +1,5 @@
-require File.join(File.dirname(__FILE__), %w[.. .. spec_helper])
+# -*- coding: utf-8 -*-
+require  File.expand_path( File.dirname(__FILE__)) + "/../../spec_helper.rb"
 
 describe Feedzirra::Parser::RSSEntry do
   before(:each) do
@@ -28,7 +29,7 @@ describe Feedzirra::Parser::RSSEntry do
   end
   
   it "should parse the published date" do
-    @entry.published.to_s.should == "Thu Dec 04 17:17:49 UTC 2008"
+    @entry.published.should == DateTime.parse("Thu Dec 04 17:17:49 UTC 2008")
   end
 
   it "should parse the categories" do

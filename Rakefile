@@ -1,7 +1,9 @@
 require "spec"
 require "spec/rake/spectask"
 require 'rake/rdoctask'
-require 'lib/feedzirra.rb'
+require  File.expand_path( File.dirname(__FILE__)) + "/lib/feedzirra.rb"
+$:.unshift  File.expand_path(File.dirname(__FILE__) )
+$:.unshift  File.expand_path(File.dirname(__FILE__)+"/lib" )
 
 # Grab recently touched specs
 def recent_specs(touched_since)
@@ -52,5 +54,5 @@ end
 task :install do
   rm_rf "*.gem"
   puts `gem build feedzirra.gemspec`
-  puts `sudo gem install feedzirra-#{Feedzirra::VERSION}.gem`
+  puts `gem install feedzirra-#{Feedzirra::VERSION}.gem`
 end
