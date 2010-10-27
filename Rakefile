@@ -54,5 +54,5 @@ end
 task :install do
   rm_rf "*.gem"
   puts `gem build feedzirra.gemspec`
-  puts `gem install feedzirra-#{Feedzirra::VERSION}.gem`
+  puts `gem install knight-feedzirra-#{Feedzirra::VERSION}.gem`
 end

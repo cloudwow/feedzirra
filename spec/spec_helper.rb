@@ -7,7 +7,7 @@ begin require "redgreen" unless ENV['TM_CURRENT_LINE']; rescue LoadError; end
 path = File.expand_path(File.dirname(__FILE__) + "/../lib/")
 $LOAD_PATH.unshift(path) unless $LOAD_PATH.include?(path)
 
-require File.expand_path(File.dirname(__FILE__) + "/../lib/feedzirra.rb")
+require "lib/feedzirra"
 
 def load_sample(filename)
   File.read("#{File.dirname(__FILE__)}/sample_feeds/#{filename}")
